@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Arrays;
 public class Habitante {
     private String nombre;
     private ArrayList<Producto> cesta;
@@ -144,18 +146,35 @@ public class Habitante {
         return devuelve;
     }
     public Producto haceTrueque(int i, Producto p){
-        Producto p=null;
+        Producto h=null;
         if(i!=0 && p!=null){
             for(int j=0;j<cesta.size() && p==null;j++){
                 if(cesta.get(j).getTipo()== i){
-                    p=cesta.remove(j);
+                    h=cesta.remove(j);
                     cesta.add(j, p);
                 }
             }
         }
-        return p;
+        return h;
     }
     public double tributa( Mistico m){
-
+        ArrayList<Producto> agasaja=new ArrayList<Producto>();
+        double antiguo=vigor;
+        for(int i=0;i<cesta.size();i++){
+            if(agasaja.get(cesta.get(i).getTipo())==null){
+                agasaja.add(cesta.get(i).getTipo(),cesta.get(i));
+            }
+        }
+        if((vigor+m.culto(agasaja, nombre))<100) {
+            vigor = vigor + m.culto(agasaja, nombre);
+        }else{
+            vigor=100;
+        }
+        return (vigor-antiguo);
     }
+    public int plegaria(Mistico m, Terreno t){
+        int devuelve=0;
+        return devuelve;
+    }
+
 }
