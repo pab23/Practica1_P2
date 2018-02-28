@@ -110,4 +110,52 @@ public class Habitante {
             return p;
         }else return null;
     }
+    public ArrayList<String> trueque(Habitante h){
+        int necesita=0;
+        int aux=0;
+        Producto p=null;
+        ArrayList<String> devuelve= new ArrayList<String>();
+        int[] suma=new int[6];
+        if (h!=null) {
+            for (int i = 0; i < cesta.size(); i++) {
+                if (cesta.get(i) != null) {
+                    suma[cesta.get(i).getTipo() - 1]++;
+                }
+            }
+            for (int j = 0; j < suma.length; j++) {
+                if (necesita == 0 || necesita < suma[j]) {
+                    necesita = suma[j];
+                    aux = j;
+                }
+            }
+            for (int z = 0; z < cesta.size() && p == null; z++) {
+                if (cesta.get(z).getTipo() == aux) {
+                    p = cesta.get(z);
+                }
+            }
+            necesita = this.estudio();
+            Producto pdev = h.haceTrueque(necesita, p);
+            if (pdev != null) {
+                cesta.add(pdev);
+                devuelve.add(pdev.getNombre());
+                devuelve.add(p.getNombre());
+            }
+        }
+        return devuelve;
+    }
+    public Producto haceTrueque(int i, Producto p){
+        Producto p=null;
+        if(i!=0 && p!=null){
+            for(int j=0;j<cesta.size() && p==null;j++){
+                if(cesta.get(j).getTipo()== i){
+                    p=cesta.remove(j);
+                    cesta.add(j, p);
+                }
+            }
+        }
+        return p;
+    }
+    public double tributa( Mistico m){
+
+    }
 }
