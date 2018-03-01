@@ -176,5 +176,26 @@ public class Habitante {
         int devuelve=0;
         return devuelve;
     }
+    public String getNombre(){
+        return nombre;
+    }
+    public double getVigor(){
+        return vigor;
+    }
+    public String getClan(){
+    }
+    public static int getHombres(){
+        int hombres=0;
+        for(int i=0;i<poblacion.size();i++){
+            if(poblacion.get(i).sexo=='H')hombres++;
+        }
+        return hombres;
+    }
+    public static int getMujeres(){
+        return poblacion.size()-getHombres();
+    }
+    public static ArrayList<Habitante> getPoblacion(){
+        return poblacion;
+    }
 
 }
