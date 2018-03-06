@@ -224,6 +224,9 @@ public class Habitante {
         if(s.equalsIgnoreCase(this.getClan()))devuelve=true;
         return devuelve;
     }
+    public ArrayList<Producto> getCesta(){
+        return cesta;
+    }
     public static int getHombres(){
         int hombres=0;
         for(int i=0;i<poblacion.size();i++){

@@ -1,15 +1,20 @@
 import java.util.ArrayList;
 public class Terreno {
     private Producto[][] parcelas;
+    private int fil, col;
 
     public Terreno(int i, int j){
-        if(i<0){
-            i=3;
+        if(i<=0){
+            fil=3;
+        }else{
+            fil=i;
         }
-        if(j<0){
-            j=2;
+        if(j<=0){
+            col=2;
+        }else{
+            col=j;
         }
-        parcelas=new Producto[i][j];
+        parcelas=new Producto[fil][col];
     }
     public boolean genera(int i,int j,double d,int k, String s){
         boolean devuelve=false;
@@ -43,7 +48,7 @@ public class Terreno {
     }
     public boolean coloca( Producto p, int i, int j){
         boolean devuelve=false;
-        if(i<parcelas.length && j<parcelas[0].length) {
+        if(i<fil && j<col) {
             if (parcelas[i][j] == null && p.getColocado() == false) {
                 p.setColocado(true);
                 parcelas[i][j] = p;
@@ -85,8 +90,8 @@ public class Terreno {
         ArrayList<Integer> devuelve=new ArrayList<Integer>();
         double suma=0;
         ArrayList<Integer> tipos=new ArrayList<Integer>();
-        for(int i=0;i<parcelas.length;i++){                 /*Coge los diferentes tipos de la matriz*/
-            for(int j=0;j<parcelas[0].length;j++){
+        for(int i=0;i<fil;i++){                 /*Coge los diferentes tipos de la matriz*/
+            for(int j=0;j<col;j++){
                 for(int z=0;z<6;z++){
                     if(tipos.get(z)!=null){
                         if(parcelas[i][j].getTipo()!=tipos.get(z) || tipos.size()==0){
@@ -113,6 +118,6 @@ public class Terreno {
         return parcelas.length;
     }
     public int getColumnas(){
-        return parcelas[0].length;
+        return col;
     }
 }
