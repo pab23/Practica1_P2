@@ -174,6 +174,33 @@ public class Habitante {
     }
     public int plegaria(Mistico m, Terreno t){
         int devuelve=0;
+        int animal=0;
+        int vegetal=0;
+        ArrayList<Integer> filas= new ArrayList<Integer>();
+        ArrayList<Integer> columnas= new ArrayList<Integer>();
+        if( m!=null && t!=null){
+            for(int i=0;i<cesta.size();i++){
+                if(cesta.get(i).getTipo()==1)animal++;
+                if(cesta.get(i).getTipo()==2)vegetal++;
+            }
+            for(int i=0;i<t.getFilas();i++){
+                for(int j=0;j<t.getColumnas();j++){
+                    if(t.consultaTipo(i, j)==5){
+                        filas.add(i);
+                        columnas.add(j);
+                    }
+                }
+            }
+            if (animal >= vegetal) {
+                m.transforma(t, 2);
+            } else{
+                m.transforma(t, 1);
+            }
+            for(int i=0;i<filas.size();i++) {
+                cesta.add(t.recoge(filas.get(i), columnas.get(i)));
+                devuelve++;
+            }
+        }
         return devuelve;
     }
     public String getNombre(){
@@ -183,6 +210,19 @@ public class Habitante {
         return vigor;
     }
     public String getClan(){
+        String clan=null;
+        String[] separado=nombre.split(" ");
+        if(separado.length>1){
+            if(separado[1]!=null){
+                clan=separado[1];
+            }
+        }
+        return clan;
+    }
+    public boolean perteneceClan(String s){
+        boolean devuelve=false;
+        if(s.equalsIgnoreCase(this.getClan()))devuelve=true;
+        return devuelve;
     }
     public static int getHombres(){
         int hombres=0;
