@@ -10,7 +10,7 @@ public class Producto {
         }else{
             peso=1;
         }
-        if(i<=6 || i>0){
+        if(i<=6 && i>0){
             tipo=i;
         }else{
             tipo=6;
@@ -29,7 +29,7 @@ public class Producto {
         for(int i=0;i<aux.length;i++){
             suma=suma+(aux[i]-97);
         }
-        res=suma/nombre.length();
+        res=suma/(double)nombre.length();
         return res;
     }
     public double valorProducto(){
@@ -37,9 +37,11 @@ public class Producto {
     }
     public int transforma(Producto p,int i){
         int devuelve=-1;
-        if(this.tipo==6 && i<=6 && i>0 && p.tipo!=i){
-            p.tipo=i;
-            devuelve=1;
+        if (p != null) {
+            if (tipo == 6 && i <= 6 && i > 0 && p.tipo != i) {
+                p.tipo = i;
+                devuelve = 1;
+            }
         }
         return devuelve;
     }
