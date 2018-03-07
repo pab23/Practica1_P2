@@ -13,6 +13,7 @@ public class Mistico {
             if(a.get(i)!=null) {
                 suma = suma + a.get(i).valorKilo();
                 tributos.add(a.get(i));
+                a.get(i).setColocado(true);
             }
         }
         suma=suma/a.size();
@@ -27,13 +28,15 @@ public class Mistico {
         int colocado=0;
         if(!p.getColocado()){
             tributos.add(p);
+            p.setColocado(true);
             for(int i=0;i<t.getFilas();i++){
                 for(int j=0;j<t.getColumnas();j++){
-                    if(vector>tributos.size())vector=0;
+                    if(vector>=tributos.size())vector=0;
                     if(t.genera(i, j, tributos.get(vector).getPeso(), tributos.get(vector).getTipo(),tributos.get(vector).getNombre())){
                         colocado++;
+                        vector++;
                     }
-                    vector++;
+
                 }
             }
         }

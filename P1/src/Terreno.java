@@ -18,10 +18,12 @@ public class Terreno {
     }
     public boolean genera(int i,int j,double d,int k, String s){
         boolean devuelve=false;
-        if(parcelas[i][j]==null && i<parcelas.length && j<parcelas[0].length){
-            Producto p=new Producto( d, k, s);
-            parcelas[i][j]=p;
-            devuelve=true;
+        if(i<fil && j<col){
+            if(parcelas[i][j]==null){
+                Producto p=new Producto( d, k, s);
+                parcelas[i][j]=p;
+                devuelve=true;
+            }
         }
         return devuelve;
     }
@@ -77,8 +79,8 @@ public class Terreno {
     }
     public int existencias(int i){
         int cant=0;
-        for( int j=0;j<parcelas.length;j++){
-            for(int z=0;z<parcelas[0].length;z++) {
+        for( int j=0;j<fil;j++){
+            for(int z=0;z<col;z++) {
                 if (parcelas[j][z].getTipo() == i) {
                     cant++;
                 }
@@ -90,8 +92,10 @@ public class Terreno {
         ArrayList<Integer> devuelve=new ArrayList<Integer>();
         double suma=0;
         ArrayList<Integer> tipos=new ArrayList<Integer>();
-        for(int i=0;i<6;i++){
-            tipos.add(existencias(i));
+        for(int i=1;i<=6;i++){
+            if(existencias(i)!=0){
+                tipos.add(existencias(i));
+            }
         }
         for(int i=0;i<tipos.size();i++){
             suma=suma+this.existencias(tipos.get(i));           /*Suma todas las exsitencias de todos los productos del terreno*/
