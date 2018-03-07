@@ -90,16 +90,8 @@ public class Terreno {
         ArrayList<Integer> devuelve=new ArrayList<Integer>();
         double suma=0;
         ArrayList<Integer> tipos=new ArrayList<Integer>();
-        for(int i=0;i<fil;i++){                 /*Coge los diferentes tipos de la matriz*/
-            for(int j=0;j<col;j++){
-                for(int z=0;z<6;z++){
-                    if(tipos.get(z)!=null){
-                        if(parcelas[i][j].getTipo()!=tipos.get(z) || tipos.size()==0){
-                            tipos.add(parcelas[i][j].getTipo());
-                        }
-                    }
-                }
-            }
+        for(int i=0;i<6;i++){
+            tipos.add(existencias(i));
         }
         for(int i=0;i<tipos.size();i++){
             suma=suma+this.existencias(tipos.get(i));           /*Suma todas las exsitencias de todos los productos del terreno*/
