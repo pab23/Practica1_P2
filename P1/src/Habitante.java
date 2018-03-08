@@ -32,6 +32,9 @@ public class Habitante {
                         if(t.consultaPeso( j, z)<vigor){
                             vigor=vigor-(t.consultaPeso( j, z)*0.1);
                             cesta.add(t.recoge( j, z));
+                            if(cesta.get(cesta.size()-1)!=null){
+                                cesta.get(cesta.size()-1).setColocado(true);
+                            }
                            devuelve=true;
                         }
                     }else{
@@ -46,8 +49,10 @@ public class Habitante {
         int[] tipos=new int[6];
         int aux=0;
         int tipo=0;
-        for(int i=0;i<cesta.size();i++){
-            tipos[cesta.get(i).getTipo()]++;
+        for(int i=0;i<cesta.size();i++) {
+            if (cesta.get(i) != null) {
+                tipos[cesta.get(i).getTipo()]++;
+            }
         }
         for(int i=0;i<tipos.length;i++){
             if(tipos[i]==0){
@@ -131,8 +136,10 @@ public class Habitante {
                 }
             }
             for (int z = 0; z < cesta.size() && p == null; z++) {
-                if (cesta.get(z).getTipo() == aux) {
-                    p = cesta.get(z);
+                if(cesta.get(z)!=null) {
+                    if (cesta.get(z).getTipo() == aux) {
+                        p = cesta.get(z);
+                    }
                 }
             }
             necesita = this.estudio();
@@ -147,11 +154,10 @@ public class Habitante {
     }
     public Producto haceTrueque(int i, Producto p){
         Producto h=null;
-        if(i!=0 && p!=null){
-            for(int j=0;j<cesta.size() && p==null;j++){
+        if(i>0 && i<=6 && p!=null){
+            for(int j=0;j<cesta.size() && h==null;j++){
                 if(cesta.get(j).getTipo()== i){
-                    h=cesta.remove(j);
-                    cesta.add(j, p);
+                    h=cesta.set(j, p);
                 }
             }
         }

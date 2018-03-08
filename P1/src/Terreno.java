@@ -52,8 +52,8 @@ public class Terreno {
         boolean devuelve=false;
         if(i<fil && j<col) {
             if (parcelas[i][j] == null && p.getColocado() == false) {
-                p.setColocado(true);
                 parcelas[i][j] = p;
+                p.setColocado(true);
                 devuelve = true;
             }
         }
@@ -111,7 +111,7 @@ public class Terreno {
         return devuelve;
     }
     public int getFilas(){
-        return parcelas.length;
+        return fil;
     }
     public int getColumnas(){
         return col;
