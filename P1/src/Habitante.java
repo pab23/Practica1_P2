@@ -51,15 +51,15 @@ public class Habitante {
         int tipo=0;
         for(int i=0;i<cesta.size();i++) {
             if (cesta.get(i) != null) {
-                tipos[cesta.get(i).getTipo()]++;
+                tipos[cesta.get(i).getTipo()-1]++;
             }
         }
         for(int i=0;i<tipos.length;i++){
             if(tipos[i]==0){
-                return i;
+                return (i+1);
             }else if(aux==0 && aux>tipos[i]){
                 aux=tipos[i];
-                tipo=i;
+                tipo=i+1;
             }
 
         }
@@ -127,12 +127,13 @@ public class Habitante {
             for (int i = 0; i < cesta.size(); i++) {
                 if (cesta.get(i) != null) {
                     suma[cesta.get(i).getTipo() - 1]++;
+
                 }
             }
             for (int j = 0; j < suma.length; j++) {
                 if (necesita == 0 || necesita < suma[j]) {
                     necesita = suma[j];
-                    aux = j;
+                    aux = j+1;
                 }
             }
             for (int z = 0; z < cesta.size() && p == null; z++) {
@@ -145,19 +146,22 @@ public class Habitante {
             necesita = this.estudio();
             Producto pdev = h.haceTrueque(necesita, p);
             if (pdev != null) {
-                cesta.add(pdev);
+                cesta.remove(p);
                 devuelve.add(pdev.getNombre());
                 devuelve.add(p.getNombre());
+                cesta.add(pdev);
             }
         }
         return devuelve;
     }
     public Producto haceTrueque(int i, Producto p){
         Producto h=null;
-        if(i>0 && i<=6 && p!=null){
-            for(int j=0;j<cesta.size() && h==null;j++){
-                if(cesta.get(j).getTipo()== i){
-                    h=cesta.set(j, p);
+        if(p!=null){
+            if(i>0 && i<=6) {
+                for (int j = 0; j < cesta.size() && h == null; j++) {
+                    if (cesta.get(j).getTipo() == i) {
+                        h = cesta.set(j, p);
+                    }
                 }
             }
         }
