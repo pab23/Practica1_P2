@@ -1,3 +1,5 @@
+//46087864 AMOROS BECERRA, PABLO
+
 public class Producto {
     private int tipo;
     private double peso;

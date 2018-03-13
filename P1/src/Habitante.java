@@ -1,3 +1,5 @@
+//46087864 AMOROS BECERRA, PABLO
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
@@ -171,8 +173,8 @@ public class Habitante {
         ArrayList<Producto> agasaja=new ArrayList<Producto>();
         double antiguo=vigor;
         for(int i=0;i<cesta.size();i++){
-            if(agasaja.get(cesta.get(i).getTipo())==null){
-                agasaja.add(cesta.get(i).getTipo(),cesta.get(i));
+            if(agasaja.get(cesta.get(i).getTipo()-1)==null){
+                agasaja.add(cesta.get(i).getTipo()-1,cesta.get(i));
             }
         }
         if((vigor+m.culto(agasaja, nombre))<100) {
