@@ -18,7 +18,7 @@ public class Terreno {
     }
     public boolean genera(int i,int j,double d,int k, String s){
         boolean devuelve=false;
-        if(i<fil && j<col){
+        if(i<fil && j<col && k!=5){
             if(parcelas[i][j]==null){
                 Producto p=new Producto( d, k, s);
                 parcelas[i][j]=p;
@@ -98,7 +98,7 @@ public class Terreno {
             }
         }
         for(int i=0;i<tipos.size();i++){
-            suma=suma+this.existencias(tipos.get(i));           /*Suma todas las exsitencias de todos los productos del terreno*/
+            suma=suma+(int)Math.pow(tipos.get(i),2);/*Suma todas las exsitencias de todos los productos del terreno*/
         }
         suma=Math.sqrt(suma);
         if(tipos.size()==1){
