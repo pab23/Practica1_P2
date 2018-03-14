@@ -108,18 +108,15 @@ public class Habitante {
         return devuelve;
     }
     public Producto edifica(String s){
-        boolean encontrado=false;
-        int i;
-        for(i=0;i<cesta.size() && encontrado==false;i++){       /*Busca piedra*/
+        Producto p=null;
+        for(int i=0;i<cesta.size();i++){       /*Busca piedra*/
             if(cesta.get(i).getTipo()==3){
-                encontrado=true;
+                p=new Producto((cesta.get(i).getPeso()/2), 5, s);
+                cesta.remove(i);
+                return p;
             }
         }
-        if(encontrado==true){                                   /* Si encuentra piedra crea eidficio*/
-            Producto p=new Producto((cesta.get(i).getPeso()/2), 5, s);
-            cesta.remove(i);
-            return p;
-        }else return null;
+        return null;
     }
     public ArrayList<String> trueque(Habitante h){
         int necesita=0;
@@ -173,6 +170,10 @@ public class Habitante {
     }
     public double tributa( Mistico m) {
         ArrayList<Producto> agasaja = new ArrayList<Producto>();
+        double cultodev=0;
+        for(int i=0;i<6;i++){
+            agasaja.add(null);
+        }
         double antiguo = vigor;
         if (m != null){
             for (int i = 0; i < cesta.size(); i++) {
@@ -180,8 +181,10 @@ public class Habitante {
                     agasaja.add(cesta.get(i).getTipo() - 1, cesta.get(i));
                 }
             }
-        if ((vigor + m.culto(agasaja, nombre)) < 100) {
-            vigor = vigor + m.culto(agasaja, nombre);
+            cultodev=m.culto(agasaja, nombre);
+        if ((vigor + cultodev) <= 100) {
+            vigor = vigor + cultodev;
+            System.out.println(vigor);
         } else {
             vigor = 100;
         }

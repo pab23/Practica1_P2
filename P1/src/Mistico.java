@@ -1,4 +1,6 @@
 //46087864 AMOROS BECERRA, PABLO
+import com.sun.org.apache.xpath.internal.SourceTree;
+
 import java.util.ArrayList;
 public class Mistico {
     ArrayList<Producto> tributos;
@@ -24,6 +26,7 @@ public class Mistico {
             }
             if (!encuentra) adoradores.add(s);
         }
+        System.out.println("Culto"+suma);
         return suma;
     }
     public int regenera( Terreno t, Producto p){
