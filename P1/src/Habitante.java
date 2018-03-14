@@ -184,7 +184,6 @@ public class Habitante {
             cultodev=m.culto(agasaja, nombre);
         if ((vigor + cultodev) <= 100) {
             vigor = vigor + cultodev;
-            System.out.println(vigor);
         } else {
             vigor = 100;
         }
