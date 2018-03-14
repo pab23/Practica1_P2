@@ -26,21 +26,26 @@ public class Habitante {
     }
     public boolean recolecta(Terreno t, int i){
         boolean devuelve=false;
-
         if(i!=5 && t!=null) {
-            for (int j = 0; j < t.getFilas() && vigor>0 && devuelve==false; j++) {
-                for (int z = 0; z < t.getColumnas() && vigor>0 && devuelve==false; z++) {
-                    if(t.consultaTipo( j, z)==i){
-                        if(t.consultaPeso( j, z)<vigor){
-                            vigor=vigor-(t.consultaPeso( j, z)*0.1);
-                            cesta.add(t.recoge( j, z));
-                            if(cesta.get(cesta.size()-1)!=null){
-                                cesta.get(cesta.size()-1).setColocado(true);
+            for (int j = 0; j < t.getFilas() && devuelve==false; j++) {
+                for (int z = 0; z < t.getColumnas() && devuelve==false; z++) {
+                    if(vigor>=0.25) {
+                        if (t.consultaTipo(j, z) == i) {
+                            if (0.1 * (t.consultaPeso(j, z)) < vigor) {
+                                vigor = vigor - (t.consultaPeso(j, z) * 0.1);
+                                cesta.add(t.recoge(j, z));
+                                if (cesta.get(cesta.size() - 1) != null) {
+                                    cesta.get(cesta.size() - 1).setColocado(true);
+                                }
+                                devuelve = true;
+                            } else {
+                                vigor = vigor - 0.25;
                             }
-                           devuelve=true;
+                        } else {
+                            vigor = vigor - 0.25;
                         }
                     }else{
-                        vigor=vigor-0.25;
+                        vigor=0;
                     }
                 }
             }
@@ -57,9 +62,9 @@ public class Habitante {
             }
         }
         for(int i=0;i<tipos.length;i++){
-            if(tipos[i]==0){
+            if(tipos[i]==0 && i!=4){
                 return (i+1);
-            }else if(aux==0 && aux>tipos[i]){
+            }else if((aux==0 || aux>tipos[i]) && i!=4){
                 aux=tipos[i];
                 tipo=i+1;
             }
