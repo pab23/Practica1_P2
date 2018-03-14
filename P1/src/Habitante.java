@@ -27,7 +27,7 @@ public class Habitante {
     public boolean recolecta(Terreno t, int i){
         boolean devuelve=false;
 
-        if(i!=5) {
+        if(i!=5 && t!=null) {
             for (int j = 0; j < t.getFilas() && vigor>0 && devuelve==false; j++) {
                 for (int z = 0; z < t.getColumnas() && vigor>0 && devuelve==false; z++) {
                     if(t.consultaTipo( j, z)==i){
@@ -71,38 +71,40 @@ public class Habitante {
         boolean encontrado=false;
         int i=0;
         int j=0;
-        double devuelve;                        /*Busca comida*/
-        for( i=0;i<cesta.size()&& encontrado==false;i++){
-            if(cesta.get(i).getTipo()==2 || cesta.get(i).getTipo()==3){
-                if(cesta.get(i).equals(s)){
-                    encontrado=true;
+        double devuelve;
+        if (s!=null) {/*Busca comida*/
+            for (i = 0; i < cesta.size() && encontrado == false; i++) {
+                if (cesta.get(i).getTipo() == 2 || cesta.get(i).getTipo() == 3) {
+                    if (cesta.get(i).equals(s)) {
+                        encontrado = true;
+                    }
                 }
             }
-        }
-        if(encontrado==true){                   /*Si encuentra comida busca madera*/
-            encontrado=false;
-            for( j=0;j<cesta.size() && encontrado==false;j++){
-                if(cesta.get(j).getTipo()==4){
-                    encontrado=true;
+            if (encontrado == true) {                   /*Si encuentra comida busca madera*/
+                encontrado = false;
+                for (j = 0; j < cesta.size() && encontrado == false; j++) {
+                    if (cesta.get(j).getTipo() == 4) {
+                        encontrado = true;
+                    }
                 }
             }
-        }
-        if(encontrado==true){                   /* Encuentra nadera*/
-            if((vigor+cesta.get(i).valorProducto())<100){
-                vigor=vigor+cesta.get(i).valorProducto();
-            }else{
-                vigor=100;
+            if (encontrado == true) {                   /* Encuentra nadera*/
+                if ((vigor + cesta.get(i).valorProducto()) < 100) {
+                    vigor = vigor + cesta.get(i).valorProducto();
+                } else {
+                    vigor = 100;
+                }
+                cesta.remove(j);
+            } else {
+                if ((vigor + (cesta.get(i).valorProducto() / 2)) < 100) {
+                    vigor = vigor + (cesta.get(i).valorProducto() / 2);
+                } else {
+                    vigor = 100;
+                }
             }
-            cesta.remove(j);
-        }else {
-            if((vigor+(cesta.get(i).valorProducto()/2))<100){
-                vigor=vigor+(cesta.get(i).valorProducto()/2);
-            }else{
-                vigor=100;
-            }
+            cesta.remove(i);
         }
-        cesta.remove(i);
-        devuelve=100-vigor;
+        devuelve = 100 - vigor;
         return devuelve;
     }
     public Producto edifica(String s){
@@ -169,19 +171,21 @@ public class Habitante {
         }
         return h;
     }
-    public double tributa( Mistico m){
-        ArrayList<Producto> agasaja=new ArrayList<Producto>();
-        double antiguo=vigor;
-        for(int i=0;i<cesta.size();i++){
-            if(agasaja.get(cesta.get(i).getTipo()-1)==null){
-                agasaja.add(cesta.get(i).getTipo()-1,cesta.get(i));
+    public double tributa( Mistico m) {
+        ArrayList<Producto> agasaja = new ArrayList<Producto>();
+        double antiguo = vigor;
+        if (m != null){
+            for (int i = 0; i < cesta.size(); i++) {
+                if (agasaja.get(cesta.get(i).getTipo() - 1) == null) {
+                    agasaja.add(cesta.get(i).getTipo() - 1, cesta.get(i));
+                }
             }
-        }
-        if((vigor+m.culto(agasaja, nombre))<100) {
+        if ((vigor + m.culto(agasaja, nombre)) < 100) {
             vigor = vigor + m.culto(agasaja, nombre);
-        }else{
-            vigor=100;
+        } else {
+            vigor = 100;
         }
+    }
         return (vigor-antiguo);
     }
     public int plegaria(Mistico m, Terreno t){
@@ -233,7 +237,9 @@ public class Habitante {
     }
     public boolean perteneceClan(String s){
         boolean devuelve=false;
-        if(s.equalsIgnoreCase(this.getClan()))devuelve=true;
+        if(s!=null) {
+            if (s.equalsIgnoreCase(this.getClan())) devuelve = true;
+        }
         return devuelve;
     }
     public ArrayList<Producto> getCesta(){

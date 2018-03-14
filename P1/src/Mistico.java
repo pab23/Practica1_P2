@@ -10,34 +10,38 @@ public class Mistico {
     public double culto(ArrayList<Producto> a, String s){
         boolean encuentra=false;
         double suma=0;
-        for(int i=0;i<a.size();i++){
-            if(a.get(i)!=null) {
-                suma = suma + a.get(i).valorKilo();
-                tributos.add(a.get(i));
-                a.get(i).setColocado(true);
+        if(a!=null && s!=null) {
+            for (int i = 0; i < a.size(); i++) {
+                if (a.get(i) != null) {
+                    suma = suma + a.get(i).valorKilo();
+                    tributos.add(a.get(i));
+                    a.get(i).setColocado(true);
+                }
             }
+            suma = suma / a.size();
+            for (int i = 0; i < adoradores.size() && encuentra == false; i++) {
+                if (adoradores.get(i).equals(s)) encuentra = true;
+            }
+            if (!encuentra) adoradores.add(s);
         }
-        suma=suma/a.size();
-        for(int i=0;i<adoradores.size() && encuentra==false;i++){
-            if(adoradores.get(i).equals(s)) encuentra=true;
-        }
-        if(!encuentra) adoradores.add(s);
         return suma;
     }
     public int regenera( Terreno t, Producto p){
         int vector=0;
         int colocado=0;
-        if(!p.getColocado()){
-            tributos.add(p);
-            p.setColocado(true);
-            for(int i=0;i<t.getFilas();i++){
-                for(int j=0;j<t.getColumnas();j++){
-                    if(vector>=tributos.size())vector=0;
-                    if(t.genera(i, j, tributos.get(vector).getPeso(), tributos.get(vector).getTipo(),tributos.get(vector).getNombre())){
-                        colocado++;
-                        vector++;
-                    }
+        if(p!=null && t!=null) {
+            if (!p.getColocado()) {
+                tributos.add(p);
+                p.setColocado(true);
+                for (int i = 0; i < t.getFilas(); i++) {
+                    for (int j = 0; j < t.getColumnas(); j++) {
+                        if (vector >= tributos.size()) vector = 0;
+                        if (t.genera(i, j, tributos.get(vector).getPeso(), tributos.get(vector).getTipo(), tributos.get(vector).getNombre())) {
+                            colocado++;
+                            vector++;
+                        }
 
+                    }
                 }
             }
         }
@@ -47,7 +51,7 @@ public class Mistico {
         int devuelve=0;
         boolean encontrado=false;
         int j=0;
-        if(i!=5){
+        if(i!=5 && t!=null){
             for(j=0;j<tributos.size();j++){
                 if(tributos.get(j).getTipo()==6)encontrado=true;
             }

@@ -20,7 +20,7 @@ public class Terreno {
     }
     public boolean genera(int i,int j,double d,int k, String s){
         boolean devuelve=false;
-        if(i<fil && j<col && k!=5){
+        if(i<fil && j<col && k!=5 && s!=null){
             if(parcelas[i][j]==null){
                 Producto p=new Producto( d, k, s);
                 parcelas[i][j]=p;
@@ -31,7 +31,7 @@ public class Terreno {
     }
     public Producto recoge(int i,int j){
         Producto devuelve=null;
-        if(i<parcelas.length && j<parcelas[0].length) {
+        if(i<fil && j<col && j>=0 && i>=0) {
             if (parcelas[i][j] != null && parcelas[i][j].getTipo() != 5) {
                 devuelve = parcelas[i][j];
                 parcelas[i][j] = null;
@@ -40,9 +40,9 @@ public class Terreno {
         }
         return devuelve;
     }
-    public double destruye( int i, int j){
+    public double destruye( int i, int j ){
         double devuelve=0;
-        if(i<parcelas.length && j<parcelas[0].length) {
+        if(i<fil && j<col && j>=0 && i>=0) {
             if (parcelas[i][j] != null && parcelas[i][j].getTipo() == 5) {
                 devuelve = parcelas[i][j].getPeso();
                 parcelas[i][j] = null;
@@ -52,7 +52,7 @@ public class Terreno {
     }
     public boolean coloca( Producto p, int i, int j){
         boolean devuelve=false;
-        if(i<fil && j<col) {
+        if(i<fil && j<col && j>=0 && i>=0 && p!=null) {
             if (parcelas[i][j] == null && p.getColocado() == false) {
                 parcelas[i][j] = p;
                 p.setColocado(true);
@@ -63,7 +63,7 @@ public class Terreno {
     }
     public int consultaTipo(int i, int j){
         int devuelve=-1;
-        if(i<parcelas.length && j<parcelas[0].length){
+        if(i<fil && j<col && j>=0 && i>=0){
             if (parcelas[i][j]!=null) {
                 devuelve=parcelas[i][j].getTipo();
             }
@@ -72,7 +72,7 @@ public class Terreno {
     }
     public double consultaPeso(int i, int j){
         double devuelve=-1;
-        if(i<parcelas.length && j<parcelas[0].length){
+        if(i<fil && j<col && j>=0 && i>=0){
             if (parcelas[i][j] != null) {
                 devuelve = parcelas[i][j].getPeso();
             }
@@ -81,10 +81,12 @@ public class Terreno {
     }
     public int existencias(int i){
         int cant=0;
-        for( int j=0;j<fil;j++){
-            for(int z=0;z<col;z++) {
-                if (parcelas[j][z].getTipo() == i) {
-                    cant++;
+        if(i<=6 && i>0) {
+            for (int j = 0; j < fil; j++) {
+                for (int z = 0; z < col; z++) {
+                    if (parcelas[j][z].getTipo() == i) {
+                        cant++;
+                    }
                 }
             }
         }
