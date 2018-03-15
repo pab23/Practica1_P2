@@ -76,38 +76,40 @@ public class Habitante {
         boolean encontrado=false;
         int i=0;
         int j=0;
+        double valor=0;
         double devuelve;
         if (s!=null) {/*Busca comida*/
             for (i = 0; i < cesta.size() && encontrado == false; i++) {
-                if (cesta.get(i).getTipo() == 2 || cesta.get(i).getTipo() == 3) {
-                    if (cesta.get(i).equals(s)) {
+                if (cesta.get(i).getTipo() == 2 || cesta.get(i).getTipo() == 1) {
+                    if (cesta.get(i).getNombre().equalsIgnoreCase(s)) {
                         encontrado = true;
                     }
                 }
             }
-            if (encontrado == true) {                   /*Si encuentra comida busca madera*/
+            if (encontrado == true) {/*Si encuentra comida busca madera*/
+                valor=cesta.get(i-1).valorProducto();
                 encontrado = false;
                 for (j = 0; j < cesta.size() && encontrado == false; j++) {
                     if (cesta.get(j).getTipo() == 4) {
                         encontrado = true;
                     }
                 }
-            }
-            if (encontrado == true) {                   /* Encuentra nadera*/
-                if ((vigor + cesta.get(i).valorProducto()) < 100) {
-                    vigor = vigor + cesta.get(i).valorProducto();
+                if (encontrado == true) {                   /* Encuentra nadera*/
+                    if ((vigor + valor) < 100) {
+                        vigor = vigor + valor;
+                    } else {
+                        vigor = 100;
+                    }
+                    cesta.remove(j-1);
                 } else {
-                    vigor = 100;
+                    if (vigor + (valor / 2) < 100) {
+                        vigor = vigor + (valor / 2);
+                    } else {
+                        vigor = 100;
+                    }
                 }
-                cesta.remove(j);
-            } else {
-                if ((vigor + (cesta.get(i).valorProducto() / 2)) < 100) {
-                    vigor = vigor + (cesta.get(i).valorProducto() / 2);
-                } else {
-                    vigor = 100;
-                }
+                cesta.remove(i-1);
             }
-            cesta.remove(i);
         }
         devuelve = 100 - vigor;
         return devuelve;
@@ -175,15 +177,24 @@ public class Habitante {
     }
     public double tributa( Mistico m) {
         ArrayList<Producto> agasaja = new ArrayList<Producto>();
+        Producto []aux=new Producto[6];
         double cultodev=0;
-        for(int i=0;i<6;i++){
-            agasaja.add(null);
-        }
         double antiguo = vigor;
         if (m != null){
             for (int i = 0; i < cesta.size(); i++) {
-                if (agasaja.get(cesta.get(i).getTipo() - 1) == null) {
-                    agasaja.add(cesta.get(i).getTipo() - 1, cesta.get(i));
+                if(cesta.get(i).getTipo()>0 ) {
+                    if (aux[cesta.get(i).getTipo() - 1] == null) {
+                        aux[cesta.get(i).getTipo() - 1] = cesta.get(i);
+                    }
+                }else{
+                    aux[cesta.get(i).getTipo()-1]= cesta.get(i);
+                    }
+
+                }
+            }
+            for(int i=0;i<aux.length;i++){
+                if(aux[i]!=null){
+                    agasaja.add(aux[i]);
                 }
             }
             cultodev=m.culto(agasaja, nombre);
@@ -192,7 +203,6 @@ public class Habitante {
         } else {
             vigor = 100;
         }
-    }
         return (vigor-antiguo);
     }
     public int plegaria(Mistico m, Terreno t){

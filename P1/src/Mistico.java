@@ -26,7 +26,6 @@ public class Mistico {
             }
             if (!encuentra) adoradores.add(s);
         }
-        System.out.println("Culto"+suma);
         return suma;
     }
     public int regenera( Terreno t, Producto p){
