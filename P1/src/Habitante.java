@@ -199,11 +199,13 @@ public class Habitante {
             }
             cultodev=m.culto(agasaja, nombre);
         if ((vigor + cultodev) <= 100) {
-            vigor = vigor + cultodev;
+            vigor+=cultodev;
+            return cultodev;
         } else {
-            vigor = 100;
+            vigor=100;
+            return 0;
         }
-        return (vigor-antiguo);
+
     }
     public int plegaria(Mistico m, Terreno t){
         int devuelve=0;
