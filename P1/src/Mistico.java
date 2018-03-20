@@ -3,8 +3,8 @@ import com.sun.org.apache.xpath.internal.SourceTree;
 
 import java.util.ArrayList;
 public class Mistico {
-    ArrayList<Producto> tributos;
-    ArrayList<String> adoradores;
+    private ArrayList<Producto> tributos;
+    private ArrayList<String> adoradores;
     public Mistico(){
         tributos= new ArrayList<Producto>();
         adoradores= new ArrayList<String>();
