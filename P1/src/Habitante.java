@@ -3,14 +3,14 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
-public class Habitante {
+public abstract class Habitante {
     private String nombre;
     private ArrayList<Producto> cesta;
     private double vigor;
     private char sexo;
     private static ArrayList<Habitante> poblacion;
 
-    public Habitante(String s, char c){
+    public  Habitante(String s, char c){
         nombre=s;
         if(c!='H' && c!='M'){
             sexo='H';
@@ -277,5 +277,8 @@ public class Habitante {
     public static ArrayList<Habitante> getPoblacion(){
         return poblacion;
     }
-
+    public abstract boolean esAcogido(Clan c);
+    public abstract boolean esDesterrado();
+    public abstract void cambiaClan(String s);
+    public abstract Clan getTribu();
 }
