@@ -13,26 +13,41 @@ public class Plebeyo extends Habitante {
     }
     public ArrayList<String> trueque(Habitante h){
         ArrayList<String> devuelve=new ArrayList<String>();
+        ArrayList<Producto> cesto=this.getCesta();
         boolean encontrado=false;
-        int tipopas, i;
+        int i;
         if(h!=null) {
             if (this.getClan() == null && h.getClan() == null) {
                 super.trueque(h);
             }else if((this.getClan()==null && h.getClan()!=null)||(this.getClan()!=null && h.getClan()==null)){
                 if(this.getCesta().get(0)!=null){
-                    ArrayList<Producto> cesto=this.getCesta();
                     for(i=1;i<cesto.size() && encontrado==false;i++){
                         if(cesto.get(i).getTipo()!=cesto.get(0).getTipo()){
-                            tipopas=cesto.get(i).getTipo();
                             encontrado=true;
                         }
                     }
                     if(encontrado){
-                        haceTrueque(cesto.get(i).getTipo(), cesto.get(0));
+                        Producto devuelto=h.haceTrueque(cesto.get(i).getTipo(), cesto.get(0));
+                        this.setCesta(0, devuelto);
                     }
-            }else if(h){
-                if (this.getClan().equals(h.getClan()) && this.bestiola != null && h.bestiola != null) {
-
+            }else{
+                if (this.getClan().equals(h.getClan()) && h instanceof Plebeyo) {
+                    Bestiola aux=this.bestiola;
+                    this.bestiola=h.bestiola;
+                    h.bestiola=aux;
+                }else{
+                    encontrado=false;
+                    if(cesto.get(cesto.size()-1)!=null) {
+                        for (i = 0; i < cesto.size() - 1 && encontrado == false; i++) {
+                            if (cesto.get(i).getTipo() != cesto.get(cesto.size()).getTipo()) {
+                                encontrado = true;
+                            }
+                        }
+                        if(encontrado){
+                            Producto devuelto=h.haceTrueque(cesto.get(i).getTipo(), cesto.get(cesto.size()-1));
+                            this.setCesta(cesto.size()-1, devuelto);
+                        }
+                    }
                 }
             }
             }

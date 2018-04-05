@@ -271,6 +271,9 @@ public abstract class Habitante {
         }
         return hombres;
     }
+    public void setCesta(int i, Producto p){
+        cesta.set(i, p);
+    }
     public static int getMujeres(){
         return poblacion.size()-getHombres();
     }
