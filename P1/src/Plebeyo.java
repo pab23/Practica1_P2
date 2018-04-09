@@ -57,6 +57,40 @@ public class Plebeyo extends Habitante {
         return devuelve;
     }
     public double tributa(Mistico m){
-
+        ArrayList<Terreno> feudoaux=tribu.getFeudo();
+        ArrayList<Producto> aux= new ArrayList<>();
+        double devuelve=0;
+        Terreno terraux=null;
+        Producto recogido=null;
+        if(m==tribu.getDeidad()){
+            for(int i=0;i<feudoaux.size() && recogido==null;i++){
+                terraux=feudoaux.get(i);
+                if(terraux!=null){
+                    for(int j=0; j<terraux.getFilas() && recogido==null;j++){
+                        for(int z=0;z<terraux.getColumnas() && recogido==null;z++){
+                            recogido=terraux.recoge(j, z);
+                        }
+                    }
+                }
+            }
+            if(recogido!=null){
+                aux.add(recogido);
+                devuelve=m.culto(aux, getNombre());
+            }
+        }else{
+            if(m instanceof Blanco){
+                aux.add(getCesta().get(0));
+                devuelve=m.culto(aux, getNombre());
+            }else{
+                aux.add(bestiola);
+                devuelve=m.culto(aux, getNombre());
+            }
+        }
+        if ((getVigor() + devuelve) < 100) {
+            setVigor(getVigor()+devuelve);
+        } else {
+            setVigor(100);
+        }
+        return devuelve;
     }
 }
