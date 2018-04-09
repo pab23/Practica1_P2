@@ -82,9 +82,9 @@ public class Bestia {
     }
     public Demoledor hechiza(){
         Demoledor devuelve=new Demoledor(fuerza);
-        devuelve.amo=amo;
-        devuelve.nombre=nombre;
-        devuelve.amuleto=amuleto;
+        devuelve.setAmo(amo);
+        devuelve.setNombre(nombre);
+        devuelve.setAmuleto(amuleto);
         return devuelve;
     }
     public void setNombre(String s){
@@ -101,5 +101,14 @@ public class Bestia {
     }
     public Plebeyo getAmo(){
         return amo;
+    }
+    public void setAmo(Plebeyo p){
+        amo=p;
+    }
+    public void setAmuleto(Producto p){
+        amuleto=p;
+    }
+    public void setFuerza(double f){
+        fuerza=f;
     }
 }
