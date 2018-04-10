@@ -11,5 +11,16 @@ public class Guerrero extends Habitante {
         armamento=new ArrayList<>();
         tribu=null;
     }
+    public ArrayList<String> trueque(Habitante h){
+        ArrayList<String> devuelve=null;
+        if(h instanceof Guerrero){
+            devuelve= new ArrayList<>();
+            armamento.add(intercambio(armamento.get(0)));
+            devuelve.add(armamento.get(armamento.size()-1).getNombre());
+            devuelve.add(armamento.get(0).getNombre());
+            armamento.remove(0);
+        }
+        return devuelve;
+    }
 
 }
