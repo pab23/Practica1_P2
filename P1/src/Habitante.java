@@ -274,6 +274,7 @@ public abstract class Habitante {
     public void setCesta(int i, Producto p){
         cesta.set(i, p);
     }
+    public void addCesta(Producto p){cesta.add(p);}
     public void setVigor(double b){
         vigor=b;
     }

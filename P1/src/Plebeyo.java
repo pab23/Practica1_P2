@@ -59,6 +59,7 @@ public class Plebeyo extends Habitante {
     public double tributa(Mistico m){
         ArrayList<Terreno> feudoaux=tribu.getFeudo();
         ArrayList<Producto> aux= new ArrayList<>();
+        double antiviogr= getVigor();
         double devuelve=0;
         Terreno terraux=null;
         Producto recogido=null;
@@ -88,9 +89,93 @@ public class Plebeyo extends Habitante {
         }
         if ((getVigor() + devuelve) < 100) {
             setVigor(getVigor()+devuelve);
+
         } else {
             setVigor(100);
         }
+        devuelve=getVigor()-antiviogr;
         return devuelve;
+    }
+    public boolean plegaria(){
+        boolean devuelve=false;
+        double antivigor=getVigor();
+        if(tribu!=null){
+           setVigor(getVigor()+tribu.getDeidad().ayuda(bestiola.getAmuleto()));
+           if(getVigor()>antivigor)devuelve=true;
+        }
+        return devuelve;
+    }
+    public boolean domestica(Bestia b, String n){
+        boolean devuelve=false;
+        if(b.domestica(this)){
+            bestiola=b;
+            bestiola.setNombre(n);
+            devuelve=true;
+        }
+        return devuelve;
+    }
+    public int recolecta(int i, int j){
+        int devuelve=0;
+        Terreno terr;
+        Producto recogido=null;
+        if(getVigor()>0){
+            terr=tribu.getFeudo().get(i);
+            for(int k=0;k<terr.getFilas() && devuelve<j;k++){
+                for(int z=0;z<terr.getColumnas()  && devuelve<j;z++){
+                    recogido=terr.recoge(k, z);
+                    if(recogido!=null){
+                        addCesta(recogido);
+                        devuelve++;
+                    }
+                    recogido=null;
+                }
+            }
+        }
+        setVigor(getVigor()-(getVigor()*0.05));
+        if(devuelve==0)devuelve=-1;
+        return devuelve;
+    }
+    public ArrayList<Producto> vasallaje(Terreno t) {
+        Producto aux;
+        ArrayList<Producto> devuelve=new ArrayList<>();
+        if(getVigor()>0){
+            for(int i=0;i<t.getFilas();i++){
+                for(int j=0;j<t.getColumnas();j++ ){
+                    aux=t.recoge(i, j);
+                    if(aux!=null){
+                        devuelve.add(aux);
+                    }
+                    aux=null;
+                }
+            }
+        }
+        setVigor(getVigor()-(getVigor()*0.1));
+        return devuelve;
+    }
+    public int alimenta(int i){
+
+    }
+    public boolean tutela(Guerrero g){
+        boolean devuelve=false;
+        if(g.getSirviente==null && patrono==null){
+            g.acoge(this);
+            patrono=g;
+            devuelve=true;
+        }
+        return devuelve;
+    }
+    public String libera(){
+        String devuelve="";
+        if(patrono!=null){
+            devuelve=patrono.getNombre();
+            patrono = null;
+        }
+        return devuelve;
+    }
+    public Bestia getBestiola(){
+        return bestiola;
+    }
+    public Guerrero getPatrono(){
+        return patrono;
     }
 }
