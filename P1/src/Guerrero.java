@@ -105,10 +105,22 @@ public class Guerrero extends Habitante {
         }
         return devuelve;
     }
+    public int recolecta(int i){
+
+    }
 
 
 
-
+    public Plebeyo getSirviente(){
+        return sirviente;
+    }
+    public boolean esAcogido(Clan c){
+        if(c.getNombre().equalsIgnoreCase(this.getClan()) && tribu==null){
+            tribu=c;
+            return true;
+        }
+        return false;
+    }
 
     public Producto cogeProduc(int tipo){//Este metodo coge el primer producto del tipo pedido
         Producto aux=null;

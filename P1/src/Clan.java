@@ -35,4 +35,5 @@ public class Clan {
     public ArrayList<Terreno> getFeudo(){
         return feudo;
     }
+    public String getNombre(){return nombre;}
 }

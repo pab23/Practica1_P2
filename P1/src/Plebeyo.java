@@ -157,7 +157,7 @@ public class Plebeyo extends Habitante {
     }
     public boolean tutela(Guerrero g){
         boolean devuelve=false;
-        if(g.getSirviente==null && patrono==null){
+        if(g.getSirviente()==null && patrono==null){
             g.acoge(this);
             patrono=g;
             devuelve=true;
@@ -177,5 +177,12 @@ public class Plebeyo extends Habitante {
     }
     public Guerrero getPatrono(){
         return patrono;
+    }
+    public boolean esAcogido(Clan c){
+        if(c.getNombre().equalsIgnoreCase(this.getClan()) && tribu==null){
+            tribu=c;
+            return true;
+        }
+        return false;
     }
 }
