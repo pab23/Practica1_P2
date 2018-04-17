@@ -34,9 +34,12 @@ public class Bestia {
     }
     public boolean domestica(Habitante h){
         boolean devuelve=false;
-        if (amo == null && h instanceof Plebeyo && h.getBestiola==null) {
-            amo=(Plebeyo)h;
-            devuelve=true;
+        if (amo == null && h instanceof Plebeyo) {
+            Plebeyo p=(Plebeyo) h;
+            if(p.getBestiola()==null) {
+                amo = p;
+                devuelve = true;
+            }
         }
         return devuelve;
     }
@@ -68,7 +71,7 @@ public class Bestia {
             devuelve.remove(0);
         }else{
             for(int i=0;i<devuelve.size();i++){
-                if(alimenta(devuelve.get(i)){
+                if(alimenta(devuelve.get(i))){
                     devuelve.remove(i);
                 }
             }
