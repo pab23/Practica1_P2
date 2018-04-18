@@ -70,6 +70,9 @@ public class Mistico {
         }
         return devuelve;
     }
+    public void addPrimer(Producto p){
+        tributos.add(0, p);
+    }
     public ArrayList<Producto> getTributos(){
         return tributos;
     }

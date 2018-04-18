@@ -114,6 +114,9 @@ public class Terreno {
         }
         return devuelve;
     }
+    public String consultaNombre(int i, int j){
+        return parcelas[i][j].getNombre();
+    }
     public int getFilas(){
         return fil;
     }
