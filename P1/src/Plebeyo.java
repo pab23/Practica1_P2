@@ -34,9 +34,10 @@ public class Plebeyo extends Habitante {
                     }
                 } else {
                     if (this.getClan().equals(h.getClan()) && h instanceof Plebeyo) {
+                        Plebeyo ple=(Plebeyo) h;
                         Bestia aux = this.bestiola;
-                        this.bestiola = h.bestiola;
-                        h.bestiola = aux;
+                        this.bestiola = ple.bestiola;
+                        ple.bestiola = aux;
                     } else {
                         encontrado = false;
                         if (cesto.get(cesto.size() - 1) != null) {
@@ -171,6 +172,9 @@ public class Plebeyo extends Habitante {
             patrono = null;
         }
         return devuelve;
+    }
+    public void setBestia(Bestia b){
+        bestiola=b;
     }
     public Bestia getBestiola(){
         return bestiola;
