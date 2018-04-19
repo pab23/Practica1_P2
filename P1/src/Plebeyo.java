@@ -189,4 +189,15 @@ public class Plebeyo extends Habitante {
         }
         return false;
     }
+    public boolean esDesterrado(){
+        boolean devuelve=false;
+        if(tribu!=null){
+            tribu=null;
+            devuelve=true;
+        }
+        return devuelve;
+    }
+    public Clan getTribu(){
+        return tribu;
+    }
 }

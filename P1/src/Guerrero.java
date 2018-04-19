@@ -122,15 +122,27 @@ public class Guerrero extends Habitante {
         return false;
     }
 
-    public Producto cogeProduc(int tipo){//Este metodo coge el primer producto del tipo pedido
-        Producto aux=null;
-        for(int i=0;i<getCesta().size() && aux==null;i++){
-            if(getCesta().get(i).getTipo()==tipo){
-                aux=getCesta().get(i);
+    public Producto cogeProduc(int tipo) {//Este metodo coge el primer producto del tipo pedido
+        Producto aux = null;
+        for (int i = 0; i < getCesta().size() && aux == null; i++) {
+            if (getCesta().get(i).getTipo() == tipo) {
+                aux = getCesta().get(i);
                 getCesta().remove(i);
 
             }
         }
         return aux;
+    }
+    public boolean esDesterrado(){
+        boolean devuelve=false;
+        if(tribu!=null){
+            tribu=null;
+            devuelve=true;
+        }
+        return devuelve;
+    }
+
+    public Clan getTribu(){
+        return tribu;
     }
 }
