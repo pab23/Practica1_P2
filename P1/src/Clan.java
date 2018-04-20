@@ -1,3 +1,5 @@
+//46087864 AMOROS BECERRA, PABLO
+
 import java.util.ArrayList;
 
 public class Clan {
@@ -8,6 +10,7 @@ public class Clan {
 
     public Clan(String n){
         ArrayList<Habitante> pobla=Habitante.getPoblacion();
+        miembros=new ArrayList<>();
         for(int i=0;i<pobla.size();i++){
             if(n.equals(pobla.get(i).getClan())){
                 miembros.add(pobla.get(i));

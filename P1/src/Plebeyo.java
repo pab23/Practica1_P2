@@ -84,8 +84,8 @@ public class Plebeyo extends Habitante {
                 aux.add(getCesta().get(0));
                 devuelve=m.culto(aux, getNombre());
             }else{
-                aux.add(bestiola);
-                devuelve=m.culto(aux, getNombre());
+                Oscuro o=(Oscuro) m;
+                devuelve=o.culto(bestiola);
             }
         }
         if ((getVigor() + devuelve) < 100) {
@@ -125,16 +125,18 @@ public class Plebeyo extends Habitante {
         int devuelve=0;
         Terreno terr;
         Producto recogido=null;
-        if(getVigor()>0){
-            terr=tribu.getFeudo().get(i);
-            for(int k=0;k<terr.getFilas() && devuelve<j;k++){
-                for(int z=0;z<terr.getColumnas()  && devuelve<j;z++){
-                    recogido=terr.recoge(k, z);
-                    if(recogido!=null){
-                        addCesta(recogido);
-                        devuelve++;
+        if(getVigor()>0 && tribu!=null){
+            if(tribu.getFeudo().get(i)!=null) {
+                terr = tribu.getFeudo().get(i);
+                for (int k = 0; k < terr.getFilas() && devuelve < j; k++) {
+                    for (int z = 0; z < terr.getColumnas() && devuelve < j; z++) {
+                        recogido = terr.recoge(k, z);
+                        if (recogido != null) {
+                            addCesta(recogido);
+                            devuelve++;
+                        }
+                        recogido = null;
                     }
-                    recogido=null;
                 }
             }
         }
@@ -160,7 +162,22 @@ public class Plebeyo extends Habitante {
         return devuelve;
     }
     public int alimenta(int i){
+        int devuelve=0;
+        ArrayList<Producto> p;
+        if(tribu!=null){
+            for(int j=0;j<tribu.getFeudo().get(i).getFilas();j++){
+                p=bestiola.pasturea(tribu.getFeudo().get(i), j);
+                for(int z=0;z<p.size();z++){
+                    addCesta(p.get(z));
+                }
+            }
+            devuelve=1;
 
+        }else{
+            bestiola.alimenta(getCesta().get(i));
+            devuelve=2;
+        }
+        return devuelve;
     }
     public boolean tutela(Guerrero g){
         boolean devuelve=false;

@@ -1,3 +1,4 @@
+//46087864 AMOROS BECERRA, PABLO
 import java.util.ArrayList;
 
 public class Guerrero extends Habitante {
@@ -108,21 +109,23 @@ public class Guerrero extends Habitante {
     }
     public int recolecta(int i){
         int obtenidos=0;
-        Terreno elegido = tribu.getFeudo().get(i);
-        if(tribu!=null && i>=0 && i<tribu.getFeudo().size()){
-            for(int j=0;j<elegido.getFilas();j++){
-                for(int z=0;z<elegido.getColumnas();z++){
-                    if (elegido.consultaTipo(j, z)==3 || elegido.consultaTipo(j, z)==4){
-                        armamento.add(elegido.recoge(j, z));
-                        obtenidos++;
+        if(tribu !=null && tribu.getFeudo().get(i)!=null) {
+            Terreno elegido = tribu.getFeudo().get(i);
+            if (tribu != null && i >= 0 && i < tribu.getFeudo().size()) {
+                for (int j = 0; j < elegido.getFilas(); j++) {
+                    for (int z = 0; z < elegido.getColumnas(); z++) {
+                        if (elegido.consultaTipo(j, z) == 3 || elegido.consultaTipo(j, z) == 4) {
+                            armamento.add(elegido.recoge(j, z));
+                            obtenidos++;
+                        }
                     }
                 }
-            }
-            if(sirviente!=null){
-                ArrayList<Producto> aux=sirviente.vasallaje(elegido);
-                for(int j=aux.size()-1;j>=0;j--){
-                    addPrimer(aux.get(j));
-                    obtenidos++;
+                if (sirviente != null) {
+                    ArrayList<Producto> aux = sirviente.vasallaje(elegido);
+                    for (int j = aux.size() - 1; j >= 0; j--) {
+                        addPrimer(aux.get(j));
+                        obtenidos++;
+                    }
                 }
             }
         }

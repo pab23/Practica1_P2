@@ -1,8 +1,7 @@
 //46087864 AMOROS BECERRA, PABLO
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Arrays;
+
 public abstract class Habitante {
     private String nombre;
     private ArrayList<Producto> cesta;
