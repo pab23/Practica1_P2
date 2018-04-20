@@ -212,4 +212,7 @@ public class Guerrero extends Habitante {
         double poder=getVigor()*((getTipo(4)*0.4)+(getTipo(6)*0.6));
         return poder;
     }
+    public void limpiaClan(){
+        tribu=null;
+    }
 }

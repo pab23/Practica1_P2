@@ -4,6 +4,7 @@ import java.util.ArrayList;
 public class Terreno {
     private Producto[][] parcelas;
     private int fil, col;
+    private Clan miclan;
 
     public Terreno(int i, int j){
         if(i<=0){
@@ -16,6 +17,7 @@ public class Terreno {
         }else{
             col=j;
         }
+        miclan=null;
         parcelas=new Producto[fil][col];
     }
     public boolean genera(int i,int j,double d,int k, String s){
@@ -117,6 +119,10 @@ public class Terreno {
     public String consultaNombre(int i, int j){
         return parcelas[i][j].getNombre();
     }
+    public void setClan(Clan c){
+        miclan=c;
+    }
+    public Clan getClan(){return miclan;}
     public int getFilas(){
         return fil;
     }

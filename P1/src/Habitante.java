@@ -288,4 +288,5 @@ public abstract class Habitante {
     public abstract boolean esDesterrado();
     public abstract void cambiaClan(String s);
     public abstract Clan getTribu();
+    public abstract void limpiaClan();
 }

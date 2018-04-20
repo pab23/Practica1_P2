@@ -210,4 +210,7 @@ public class Plebeyo extends Habitante {
     public Clan getTribu(){
         return tribu;
     }
+    public void limpiaClan(){
+        tribu=null;
+    }
 }
