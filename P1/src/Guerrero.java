@@ -68,6 +68,7 @@ public class Guerrero extends Habitante {
         boolean encontrado=false;
         if(tribu!=null){
             if(tribu.getDeidad() instanceof Blanco){
+                Blanco b=(Blanco) tribu.getDeidad();
                 for(int i=0;i<cestaux.size() && encontrado==false;i++){
                     if(cestaux.get(i).getTipo()==6){
                         encontrado=true;
@@ -75,7 +76,7 @@ public class Guerrero extends Habitante {
                     }
                 }
                 encontrado=false;
-                setVigor(getVigor()+tribu.getDeidad().ayuda(mistic));
+                setVigor(getVigor()+b.ayuda(mistic));
 
             }
         }
@@ -106,14 +107,59 @@ public class Guerrero extends Habitante {
         return devuelve;
     }
     public int recolecta(int i){
+        int obtenidos=0;
+        Terreno elegido = tribu.getFeudo().get(i);
+        if(tribu!=null && i>=0 && i<tribu.getFeudo().size()){
+            for(int j=0;j<elegido.getFilas();j++){
+                for(int z=0;z<elegido.getColumnas();z++){
+                    if (elegido.consultaTipo(j, z)==3 || elegido.consultaTipo(j, z)==4){
+                        armamento.add(elegido.recoge(j, z));
+                        obtenidos++;
+                    }
+                }
+            }
+            if(sirviente!=null){
+                ArrayList<Producto> aux=sirviente.vasallaje(elegido);
+                for(int j=aux.size()-1;j>=0;j--){
+                    addPrimer(aux.get(j));
+                    obtenidos++;
+                }
+            }
+        }
+        return obtenidos;
+    }
+    public int lucha(Habitante h){
+        int devuelve=0;
+        double poder1, poder2;
+        if(h instanceof Guerrero){
+            Guerrero g=(Guerrero) h;
+            if(g.getTribu()!=tribu){
+                poder1=poder();
+                poder2=g.poder();
+                if(poder1>poder2){
+                    for(int i=0;i<g.armamento.size();i++){
+                        armamento.add(g.armamento.get(i));
+                        g.armamento.remove(i);
 
+                    }
+                    g.sirviente.libera();
+                    g.sirviente=null;
+                    devuelve=2;
+                }else if(poder2>poder1){
+                    for(int i=0;i<armamento.size();i++){
+                        g.armamento.add(armamento.get(i));
+                        armamento.remove(i);
+
+                    }
+                    sirviente.libera();
+                    sirviente=null;
+                    devuelve=1;
+                }
+            }
+        }
+        return devuelve;
     }
 
-
-
-    public Plebeyo getSirviente(){
-        return sirviente;
-    }
     public boolean esAcogido(Clan c){
         if(c.getNombre().equalsIgnoreCase(this.getClan()) && tribu==null){
             tribu=c;
@@ -141,8 +187,29 @@ public class Guerrero extends Habitante {
         }
         return devuelve;
     }
-
+    public void cambiaClan(String n){
+        String[] separada=getNombre().split(" ");
+        setNombre(separada[0]+n);
+    }
     public Clan getTribu(){
         return tribu;
+    }
+    public Plebeyo getSirviente(){
+        return sirviente;
+    }
+
+    public ArrayList<Producto> getArmamento() {
+        return armamento;
+    }
+    public int getTipo(int i){
+        int cuantos=0;
+        for(int j=0;j<armamento.size();j++){
+            if(armamento.get(j).getTipo()==i)cuantos++;
+        }
+        return cuantos;
+    }
+    public double poder(){
+        double poder=getVigor()*((getTipo(4)*0.4)+(getTipo(6)*0.6));
+        return poder;
     }
 }

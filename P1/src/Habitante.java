@@ -275,9 +275,9 @@ public abstract class Habitante {
         cesta.set(i, p);
     }
     public void addCesta(Producto p){cesta.add(p);}
-    public void setVigor(double b){
-        vigor=b;
-    }
+    public void addPrimer(Producto p){cesta.add(0, p);}
+    public void setVigor(double b){vigor=b;}
+    public void setNombre(String n){nombre=n;}
     public static int getMujeres(){
         return poblacion.size()-getHombres();
     }

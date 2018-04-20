@@ -101,7 +101,13 @@ public class Plebeyo extends Habitante {
         boolean devuelve=false;
         double antivigor=getVigor();
         if(tribu!=null){
-           setVigor(getVigor()+tribu.getDeidad().ayuda(bestiola.getAmuleto()));
+            if(tribu.getDeidad() instanceof Blanco){
+                Blanco b=(Blanco) tribu.getDeidad();
+                setVigor(getVigor()+b.ayuda(bestiola.getAmuleto()));
+            }else{
+                Oscuro b=(Oscuro) tribu.getDeidad();
+                setVigor(getVigor()+b.ayuda(bestiola.getAmuleto()));
+            }
            if(getVigor()>antivigor)devuelve=true;
         }
         return devuelve;
@@ -196,6 +202,10 @@ public class Plebeyo extends Habitante {
             devuelve=true;
         }
         return devuelve;
+    }
+    public void cambiaClan(String n){
+        String[] separada=getNombre().split(" ");
+        setNombre(separada[0]+n);
     }
     public Clan getTribu(){
         return tribu;
