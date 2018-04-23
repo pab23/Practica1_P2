@@ -79,13 +79,13 @@ public class Plebeyo extends Habitante {
                 aux.add(recogido);
                 devuelve=m.culto(aux, getNombre());
             }
-        }else{
-            if(m instanceof Blanco){
+        }else {
+            if (m instanceof Blanco && getCesta().size()>0) {
                 aux.add(getCesta().get(0));
-                devuelve=m.culto(aux, getNombre());
-            }else{
-                Oscuro o=(Oscuro) m;
-                devuelve=o.culto(bestiola);
+                devuelve = m.culto(aux, getNombre());
+            } else if(m instanceof Oscuro) {
+                Oscuro o = (Oscuro) m;
+                devuelve = o.culto(bestiola);
             }
         }
         if ((getVigor() + devuelve) < 100) {
@@ -106,7 +106,9 @@ public class Plebeyo extends Habitante {
                 setVigor(getVigor()+b.ayuda(bestiola.getAmuleto()));
             }else{
                 Oscuro b=(Oscuro) tribu.getDeidad();
-                setVigor(getVigor()+b.ayuda(bestiola.getAmuleto()));
+                if(bestiola!=null) {
+                    setVigor(getVigor() + b.ayuda(bestiola.getAmuleto()));
+                }
             }
            if(getVigor()>antivigor)devuelve=true;
         }
@@ -125,7 +127,7 @@ public class Plebeyo extends Habitante {
         int devuelve=0;
         Terreno terr;
         Producto recogido=null;
-        if(getVigor()>0 && tribu!=null){
+        if(getVigor()>0 && tribu!=null && i>=0 && i<tribu.getFeudo().size()){
             if(tribu.getFeudo().get(i)!=null) {
                 terr = tribu.getFeudo().get(i);
                 for (int k = 0; k < terr.getFilas() && devuelve < j; k++) {
@@ -208,9 +210,11 @@ public class Plebeyo extends Habitante {
         return patrono;
     }
     public boolean esAcogido(Clan c){
-        if(c.getNombre().equalsIgnoreCase(this.getClan()) && tribu==null){
-            tribu=c;
-            return true;
+        if(c!=null && c.getNombre()!=null) {
+            if (c.getNombre().equalsIgnoreCase(this.getClan()) && tribu == null) {
+                tribu = c;
+                return true;
+            }
         }
         return false;
     }

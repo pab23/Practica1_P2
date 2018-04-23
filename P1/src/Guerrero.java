@@ -110,8 +110,8 @@ public class Guerrero extends Habitante {
     public int recolecta(int i){
         int obtenidos=0;
         if(tribu !=null) {
-            Terreno elegido = tribu.getFeudo().get(i);
             if (i >= 0 && i < tribu.getFeudo().size()) {
+            Terreno elegido = tribu.getFeudo().get(i);
                 for (int j = 0; j < elegido.getFilas(); j++) {
                     for (int z = 0; z < elegido.getColumnas(); z++) {
                         if (elegido.consultaTipo(j, z) == 3 || elegido.consultaTipo(j, z) == 4) {

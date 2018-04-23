@@ -14,11 +14,14 @@ public class Clan {
         nombre=n;
         feudo=new ArrayList<>();
         deidad=null;
-        for(int i=0;i<pobla.size();i++){
+        int somos=pobla.size();
+        for(int i=0;i<somos;i++){
             if(n.equals(pobla.get(i).getClan())){
                 pobla.get(i).esAcogido(this);
                 miembros.add(pobla.get(i));
                 Habitante.getPoblacion().remove(i);
+                somos=pobla.size();
+                i=-1;
             }
         }
     }
