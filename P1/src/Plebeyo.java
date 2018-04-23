@@ -141,7 +141,9 @@ public class Plebeyo extends Habitante {
             }
         }
         setVigor(getVigor()-(getVigor()*0.05));
-        if(devuelve==0)devuelve=-1;
+        if(devuelve==0){
+            devuelve=-1;
+        }
         return devuelve;
     }
     public ArrayList<Producto> vasallaje(Terreno t) {

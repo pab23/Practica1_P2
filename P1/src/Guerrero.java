@@ -109,9 +109,9 @@ public class Guerrero extends Habitante {
     }
     public int recolecta(int i){
         int obtenidos=0;
-        if(tribu !=null && tribu.getFeudo().get(i)!=null) {
+        if(tribu !=null) {
             Terreno elegido = tribu.getFeudo().get(i);
-            if (tribu != null && i >= 0 && i < tribu.getFeudo().size()) {
+            if (i >= 0 && i < tribu.getFeudo().size()) {
                 for (int j = 0; j < elegido.getFilas(); j++) {
                     for (int z = 0; z < elegido.getColumnas(); z++) {
                         if (elegido.consultaTipo(j, z) == 3 || elegido.consultaTipo(j, z) == 4) {
@@ -140,18 +140,20 @@ public class Guerrero extends Habitante {
                 poder1=poder();
                 poder2=g.poder();
                 if(poder1>poder2){
-                    for(int i=0;i<g.armamento.size();i++){
-                        armamento.add(g.armamento.get(i));
-                        g.armamento.remove(i);
+                    while(g.armamento.size()!=0){
+                        this.armamento.add(g.armamento.get(0));
+                        g.armamento.remove(0);
 
                     }
-                    g.sirviente.libera();
-                    g.sirviente=null;
+                    if(g.sirviente!=null) {
+                        g.sirviente.libera();
+                        g.sirviente = null;
+                    }
                     devuelve=2;
                 }else if(poder2>poder1){
-                    for(int i=0;i<armamento.size();i++){
-                        g.armamento.add(armamento.get(i));
-                        armamento.remove(i);
+                    while(armamento.size()!=0){
+                        g.armamento.add(armamento.get(0));
+                        armamento.remove(0);
 
                     }
                     sirviente.libera();
@@ -164,9 +166,11 @@ public class Guerrero extends Habitante {
     }
 
     public boolean esAcogido(Clan c){
-        if(c.getNombre().equalsIgnoreCase(this.getClan()) && tribu==null){
-            tribu=c;
-            return true;
+        if(c!=null && c.getNombre()!=null) {
+            if (c.getNombre().equalsIgnoreCase(this.getClan()) && tribu == null) {
+                tribu = c;
+                return true;
+            }
         }
         return false;
     }

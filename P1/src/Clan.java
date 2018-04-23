@@ -11,15 +11,16 @@ public class Clan {
     public Clan(String n){
         ArrayList<Habitante> pobla=Habitante.getPoblacion();
         miembros=new ArrayList<>();
+        nombre=n;
+        feudo=new ArrayList<>();
+        deidad=null;
         for(int i=0;i<pobla.size();i++){
             if(n.equals(pobla.get(i).getClan())){
+                pobla.get(i).esAcogido(this);
                 miembros.add(pobla.get(i));
                 Habitante.getPoblacion().remove(i);
             }
         }
-        nombre=n;
-        feudo=new ArrayList<>();
-        deidad=null;
     }
     public boolean conquista(Terreno r){
         boolean devuelve=false;
