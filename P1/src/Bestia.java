@@ -56,6 +56,7 @@ public class Bestia {
     public ArrayList<Producto> pasturea(Terreno t, int k){
         ArrayList<Producto> devuelve= new ArrayList<Producto>();
         Producto aux;
+        boolean alimentado=false;
         for(int i=0;i<t.getColumnas();i++){
            aux=t.recoge(k, i);
            if(aux!=null){
@@ -69,15 +70,21 @@ public class Bestia {
             }
         }
         if(amo!=null){
-            alimenta(devuelve.get(0));
-            devuelve.remove(0);
+            for(int i=0;i<devuelve.size() && !alimentado;i++){
+                if(devuelve.get(i).getTipo()==1){
+                    alimenta(devuelve.get(i));
+                    devuelve.remove(i);
+                    alimentado=true;
+                }
+            }
         }else{
             for(int i=0;i<devuelve.size();i++){
                 if(alimenta(devuelve.get(i))){
                     devuelve.remove(i);
                 }
             }
-            return null;
+            devuelve=new ArrayList<>();
+            return devuelve;
         }
         return devuelve;
     }
