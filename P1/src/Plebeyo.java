@@ -20,7 +20,7 @@ public class Plebeyo extends Habitante {
         int i;
         if (h != null) {
             if (this.getClan() == null && h.getClan() == null) {
-                super.trueque(h);
+                devuelve=super.trueque(h);
             } else if ((this.getClan() == null && h.getClan() != null) || (this.getClan() != null && h.getClan() == null)) {
                 if (this.getCesta().get(0) != null) {
                     for (i = 1; i < cesto.size() && encontrado == false; i++) {
@@ -32,28 +32,49 @@ public class Plebeyo extends Habitante {
                         Producto devuelto = h.haceTrueque(cesto.get(i).getTipo(), cesto.get(0));
                         this.setCesta(0, devuelto);
                     }
-                } else {
-                    if (this.getClan().equals(h.getClan()) && h instanceof Plebeyo) {
-                        Plebeyo ple=(Plebeyo) h;
-                        Bestia aux = this.bestiola;
-                        this.bestiola = ple.bestiola;
-                        ple.bestiola = aux;
-                    } else {
+                }
+            } else if (this.getClan().equals(h.getClan()) && h instanceof Plebeyo) {
+                    Plebeyo ple = (Plebeyo) h;
+                    if(this.bestiola!=null && ple.bestiola!=null) {
+                            Bestia aux = this.bestiola;
+                            this.bestiola = ple.bestiola;
+                            ple.bestiola = aux;
+                            devuelve.add(ple.bestiola.getNombre());
+                            devuelve.add(bestiola.getNombre());
+                            bestiola.setAmo(this);
+                            ple.bestiola.setAmo(ple);
+                        }else if(bestiola==null){
+                            bestiola=ple.bestiola;
+                            bestiola.setAmo(this);
+                            ple.bestiola=null;
+                            devuelve.add("Ignoto");
+                            devuelve.add(bestiola.getNombre());
+                        }else if(ple.bestiola==null){
+                            ple.bestiola=bestiola;
+                            ple.bestiola.setAmo(ple);
+                            bestiola=null;
+                            devuelve.add(ple.bestiola.getNombre());
+                            devuelve.add("Ignoto");
+
+                    }
+                        } else {
+                        int tipo=0;
                         encontrado = false;
                         if (cesto.get(cesto.size() - 1) != null) {
                             for (i = 0; i < cesto.size() - 1 && encontrado == false; i++) {
-                                if (cesto.get(i).getTipo() != cesto.get(cesto.size()).getTipo()) {
+                                if (cesto.get(i).getTipo() != cesto.get(cesto.size()-1).getTipo()) {
+                                    tipo=cesto.get(i).getTipo();
                                     encontrado = true;
                                 }
                             }
                             if (encontrado) {
-                                Producto devuelto = h.haceTrueque(cesto.get(i).getTipo(), cesto.get(cesto.size() - 1));
+                                Producto devuelto = h.haceTrueque(tipo, cesto.get(cesto.size() - 1));
+                                devuelve.add(devuelto.getNombre());
+                                devuelve.add(cesto.get(cesto.size()-1).getNombre());
                                 this.setCesta(cesto.size() - 1, devuelto);
                             }
                         }
                     }
-                }
-            }
         }
         return devuelve;
     }

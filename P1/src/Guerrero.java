@@ -16,7 +16,8 @@ public class Guerrero extends Habitante {
         ArrayList<String> devuelve=null;
         if(h instanceof Guerrero){
             devuelve= new ArrayList<>();
-            armamento.add(intercambio(armamento.get(0)));
+            Guerrero g= (Guerrero) h;
+            armamento.add((g.intercambio(armamento.get(0))));
             devuelve.add(armamento.get(armamento.size()-1).getNombre());
             devuelve.add(armamento.get(0).getNombre());
             armamento.remove(0);
@@ -88,10 +89,10 @@ public class Guerrero extends Habitante {
         Producto devuelve=null;
         if(p.getTipo()==3){
             devuelve=cogeProduc(4);
-            addCesta(p);
+            armamento.add(p);
         }else if(p.getTipo()==4){
             devuelve=cogeProduc(3);
-            addCesta(p);
+            armamento.add(p);
         }
         return devuelve;
     }
@@ -177,10 +178,10 @@ public class Guerrero extends Habitante {
 
     public Producto cogeProduc(int tipo) {//Este metodo coge el primer producto del tipo pedido
         Producto aux = null;
-        for (int i = 0; i < getCesta().size() && aux == null; i++) {
-            if (getCesta().get(i).getTipo() == tipo) {
-                aux = getCesta().get(i);
-                getCesta().remove(i);
+        for (int i = 0; i < armamento.size() && aux == null; i++) {
+            if (armamento.get(i).getTipo() == tipo) {
+                aux = armamento.get(i);
+                armamento.remove(i);
 
             }
         }
